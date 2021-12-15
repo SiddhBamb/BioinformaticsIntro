@@ -43,9 +43,9 @@ for c in unique_chains.keys():
     residues = [r[r.find("(")+1:r.find(")")] for r in residues]
     residues_all.extend(residues)
 freqs = Counter(residues_all)
-print(freqs)
+#print(freqs)
 
 outfile = open("frequencies.txt", "w")
 for r in freqs.keys():
-    outfile.write(str(r) + ": " + str(freqs[r]) + "\n")
+    outfile.write(str(r) + " " + str(freqs[r]) + "\n")
 outfile.close()
