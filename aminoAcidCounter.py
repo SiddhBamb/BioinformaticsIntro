@@ -26,13 +26,26 @@ for modelNum in range(len(model)):
 # print(unique_chains)
 
 # use Counter to find residue frequencies after flattening all unique chains into one list of all residues
+# residues_all = []
+# for c in unique_chains.keys():
+#    residues = c.split(",")
+#    residues_all.extend(residues)
+# freqs = Counter(residues_all)
+
+# issue: are "167(HIS)" and "50(HIS)" different? they're counted as different for the above code
+# print(freqs)
+
+# same as above but counts all numbers associated with one residue as being the same residue
 residues_all = []
 for c in unique_chains.keys():
     residues = c.split(",")
+    # gets rid of number and parentheses, just keeps 3 letter residue code
+    residues = [r[r.find("(")+1:r.find(")")] for r in residues]
     residues_all.extend(residues)
 freqs = Counter(residues_all)
-
 print(freqs)
 
-
-
+outfile = open("frequencies.txt", "w")
+for r in freqs.keys():
+    outfile.write(str(r) + ": " + str(freqs[r]) + "\n")
+outfile.close()
